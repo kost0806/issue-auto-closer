@@ -1,7 +1,6 @@
 import NotImplementedError from './errors/NotImplementedError';
 import GitHubAgent from './GitHubAgent';
 import JiraAgent from './JiraAgent';
-import gitHubAgent from './GitHubAgent';
 
 class IssueAutoCloser {
   private githubAgent: GitHubAgent;
@@ -20,8 +19,7 @@ class IssueAutoCloser {
   }
 
   public async run() {
-    const pullRequestMessage =
-      await this.githubAgent.getPullRequestDescription();
+    const pullRequestMessage = this.githubAgent.getPullRequestDescription();
     const commitMessages = await this.githubAgent.getCommitMessages();
 
     const contents = [pullRequestMessage, ...commitMessages];
