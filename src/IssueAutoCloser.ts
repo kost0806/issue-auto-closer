@@ -5,17 +5,15 @@ import JiraAgent from './JiraAgent';
 class IssueAutoCloser {
   private githubAgent: GitHubAgent;
   private jiraAgent: JiraAgent;
+  private jiraProjectKey: string;
 
   constructor() {
     this.githubAgent = new GitHubAgent();
-    this.jiraAgent = new JiraAgent(
-      this.githubAgent.getInputValue('jira-url'),
-      {
-        username: this.githubAgent.getInputValue('jira-username'),
-        password: this.githubAgent.getInputValue('jira-password'),
-      },
-      this.githubAgent.getInputValue('jira-project-key')
-    );
+    this.jiraAgent = new JiraAgent(this.githubAgent.getInputValue('jira-url'), {
+      username: this.githubAgent.getInputValue('jira-username'),
+      password: this.githubAgent.getInputValue('jira-password'),
+    });
+    this.jiraProjectKey = this.githubAgent.getInputValue('jira-project-key');
   }
 
   public async run() {
